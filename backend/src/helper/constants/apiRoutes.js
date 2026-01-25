@@ -13,7 +13,8 @@ export const API = Object.freeze({
     BASE_URL:`/groove-box/api/v1/stats`
  },
  auth:{ 
-    BASE_URL:`/groove-box/api/v1/auth`
+    BASE_URL:`/groove-box/api/v1/auth`, 
+    CLERK_AUTH_CALLBACK:`/callback`
  },
 admin: {
     BASE_URL:`/groove-box/api/v1/admin`
