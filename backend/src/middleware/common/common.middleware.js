@@ -1,11 +1,13 @@
 import express from "express";
 import { API } from "../../helper/constants/apiRoutes.js";
-import userRoutes from "../../routes/user/user.route.js";
-import albumRoutes from "../../routes/album/album.route.js";
-import songRoutes from "../../routes/song/song.route.js";
-import adminRoutes from "../../routes/admin/admin.route.js";
-import authRoutes from "../../routes/auth/auth.route.js";
-import statsRoutes from "../../routes/stats/stats.route.js";
+import {
+  adminRoutes,
+  albumRoutes,
+  authRoutes,
+  songRoutes,
+  statsRoutes,
+  userRoutes,
+} from "../../routes/index.js";
 
 const { user, song, admin, album, auth, stats } = API;
 
