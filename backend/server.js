@@ -3,8 +3,8 @@ import { connectionWithDB } from "./src/helper/utils/connectionWithDB.js";
 import {
   middlewareRoutes,
   parseJson,
-  serverErrorMiddleware,
 } from "./src/middleware/common/common.middleware.js";
+import { serverErrorMiddleware } from "./src/middleware/error/error.middleware.js";
 
 const { userRoute, albumRoute, songRoute, adminRoute, authRoute, statsRoute } =
   middlewareRoutes;
