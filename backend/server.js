@@ -1,6 +1,7 @@
 import express from "express";
 import { connectionWithDB } from "./src/helper/utils/connectionWithDB.js";
 import {
+  clerkGlobalMiddleware,
   middlewareRoutes,
   parseJson,
 } from "./src/middleware/common/common.middleware.js";
@@ -12,12 +13,14 @@ const { userRoute, albumRoute, songRoute, adminRoute, authRoute, statsRoute } =
 const app = express();
 
 parseJson(app);
+clerkGlobalMiddleware(app);
 userRoute(app);
 albumRoute(app);
 songRoute(app);
 adminRoute(app);
 authRoute(app);
 statsRoute(app);
+
 
 serverErrorMiddleware(app);
 

@@ -39,5 +39,8 @@ export const serverMessages = Object.freeze({
       signupSuccess: "User signup successfully",
       signupError:'Error while '
     },
+    authorizedMessages:{
+      notAuthorized:'Error authorized - user must be logged in'
+    }
   },
 });

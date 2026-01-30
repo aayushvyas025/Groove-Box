@@ -8,6 +8,7 @@ import {
   statsRoutes,
   userRoutes,
 } from "../../routes/index.js";
+import { clerkMiddleware } from '@clerk/express';
 
 const { user, song, admin, album, auth, stats } = API;
 
@@ -23,3 +24,9 @@ export const middlewareRoutes = {
   authRoute: (app) => app.use(auth.BASE_URL, authRoutes),
   statsRoute: (app) => app.use(stats.BASE_URL, statsRoutes),
 };
+
+export const clerkGlobalMiddleware = (app) => {
+  app.use(clerkMiddleware()); 
+}
+
+
