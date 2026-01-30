@@ -17,7 +17,8 @@ export const API = Object.freeze({
     CLERK_AUTH_CALLBACK:`/callback`
  },
 admin: {
-    BASE_URL:`/groove-box/api/v1/admin`
+    BASE_URL:`/groove-box/api/v1/admin`,
+    CHECK_ADMIN:`/check-admin`
 }
 }) 
 
