@@ -44,4 +44,10 @@ export const serverMessages = Object.freeze({
       adminAuthorization:'Error un-authorized - user is not admin '
     }
   },
+  adminMessages:{
+    adminSongsMessages:{
+      songInputFieldError:'Error - required all fields',
+      songCreated:'Song created successfully'
+    }
+  }
 });

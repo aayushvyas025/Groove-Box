@@ -8,7 +8,7 @@ export const API = Object.freeze({
  },
  song:{
     BASE_URL:`/groove-box/api/v1/song`,
-    CREATE_SONG:`/create`
+    CREATE_SONG:`/song/create`
  },
  stats: {
     BASE_URL:`/groove-box/api/v1/stats`
