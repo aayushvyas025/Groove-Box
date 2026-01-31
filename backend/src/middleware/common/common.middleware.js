@@ -8,9 +8,12 @@ import {
   statsRoutes,
   userRoutes,
 } from "../../routes/index.js";
-import { clerkMiddleware } from '@clerk/express';
+import { clerkMiddleware } from "@clerk/express";
+import fileUpload from "express-fileupload";
+import path from "path";
 
 const { user, song, admin, album, auth, stats } = API;
+const __dirname = path.resolve();
 
 export const parseJson = (app) => {
   app.use(express.json());
@@ -26,7 +29,22 @@ export const middlewareRoutes = {
 };
 
 export const clerkGlobalMiddleware = (app) => {
-  app.use(clerkMiddleware()); 
-}
+  app.use(clerkMiddleware());
+};
 
+export const expressFileUpload = (app) => {
+  app.use(
+    fileUpload({
+      useTempFiles: true,
+      tempFileDir: path.join(__dirname, "temp"),
+      createParentPath:true,
+      limits:{
+        fileSize:10 * 1024 * 1024 
+      }
+    }),
+  );
+};
 
+export const secureUrlEncoded = (app) => {
+  app.use(express.urlencoded({ extended: true }));
+};
