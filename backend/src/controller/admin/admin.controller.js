@@ -1,9 +1,16 @@
-export  const checkAdmin = (request, response) => {
+export  const checkAdmin = async(request, response, next) => {
     try {
         
     } catch (error) {
-        console.error(` ${error.message}`); 
+    next(error)
     }
 }
 
 
+export const createSongs = async(request, response, next) => {
+ try {
+    
+ } catch (error) {
+    next(error);
+ }
+}

@@ -8,5 +8,8 @@ export const envSecrets = Object.freeze({
   clerkPublishableKey: process.env?.CLERK_PUBLISHABLE_KEY,
   clerkSecretKey: process.env?.CLERK_SECRET_KEY,
   nodeEnvironment: process.env?.NODE_ENV,
-  adminEmail:process.env?.ADMIN_EMAIL
+  adminEmail: process.env?.ADMIN_EMAIL,
+  cloudinaryCloudName: process.env?.CLOUDINARY_CLOUD_NAME,
+  cloudinaryApiKey: process.env?.CLOUDINARY_API_KEY,
+  cloudinaryApiSecret: process.env?.CLOUDINARY_API_SECRET,
 });

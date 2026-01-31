@@ -7,7 +7,8 @@ export const API = Object.freeze({
     BASE_URL:`/groove-box/api/v1/album`,
  },
  song:{
-    BASE_URL:`/groove-box/api/v1/song`
+    BASE_URL:`/groove-box/api/v1/song`,
+    CREATE_SONG:`/create`
  },
  stats: {
     BASE_URL:`/groove-box/api/v1/stats`
@@ -18,7 +19,7 @@ export const API = Object.freeze({
  },
 admin: {
     BASE_URL:`/groove-box/api/v1/admin`,
-    CHECK_ADMIN:`/check-admin`
+    CHECK_ADMIN:`/check-admin`,
 }
 }) 
 

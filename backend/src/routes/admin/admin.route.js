@@ -1,12 +1,21 @@
-import express from "express"
+import express from "express";
 import { API } from "../../helper/constants/apiRoutes.js";
-import { checkAdmin } from "../../controller/admin/admin.controller.js";
+import {
+  checkAdmin,
+  createSongs,
+} from "../../controller/admin/admin.controller.js";
+import {
+  protectRoute,
+  requireAdmin,
+} from "../../middleware/auth/auth.middleware.js";
 
-const {admin} = API; 
-const {CHECK_ADMIN} = admin;
+const { admin, song } = API;
+const { CHECK_ADMIN } = admin;
+const { CREATE_SONG } = song;
 
-const router = express.Router(); 
+const router = express.Router();
 
-router.get(CHECK_ADMIN, checkAdmin)
+router.get(CHECK_ADMIN, protectRoute, requireAdmin, checkAdmin);
+router.post(CREATE_SONG, protectRoute, requireAdmin, createSongs);
 
-export default router; 
+export default router;
