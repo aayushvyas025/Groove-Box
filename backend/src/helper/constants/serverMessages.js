@@ -40,7 +40,8 @@ export const serverMessages = Object.freeze({
       signupError:'Error while '
     },
     authorizedMessages:{
-      notAuthorized:'Error authorized - user must be logged in'
+      notAuthorized:'Error un-authorized - user must be logged in',
+      adminAuthorization:'Error un-authorized - user is not admin '
     }
   },
 });
