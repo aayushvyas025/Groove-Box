@@ -1,7 +1,3 @@
-import { envSecrets } from "./constants.js";
-
-const { backendPort } = envSecrets;
-
 export const serverMessages = Object.freeze({
   statusCode: {
     ok: 200,
@@ -37,20 +33,24 @@ export const serverMessages = Object.freeze({
     signupMessages: {
       inputFieldsError: "Error - Required all fields",
       signupSuccess: "User signup successfully",
-      signupError:'Error while '
+      signupError: "Error while ",
     },
-    authorizedMessages:{
-      notAuthorized:'Error un-authorized - user must be logged in',
-      adminAuthorization:'Error un-authorized - user is not admin '
-    }
+    authorizedMessages: {
+      notAuthorized: "Error un-authorized - user must be logged in",
+      adminAuthorization: "Error un-authorized - user is not admin ",
+    },
   },
-  adminMessages:{
-    adminSongsMessages:{
-      songInputFieldError:'Error - required all fields',
-      songCreated:'Song created successfully'
-    }
+  adminMessages: {
+    adminSongsMessages: {
+      songInputFieldError: "Error - required all fields",
+      songCreated: "Song created successfully",
+    },
   },
-  fileUploadMessages:{
-    fileUploadError:'Error - required all uploads'
-  }
+  fileUploadMessages: {
+    fileUploadError: "Error - required all uploads",
+    cloudinaryError: "Error while uploading to cloudinary",
+  },
+  albumMessages: {
+    albumNotFound: "Error - album not found",
+  },
 });
