@@ -24,11 +24,12 @@ export const requireAdmin = async (request, response, next) => {
 
     if (!isAdmin) {
       return response
-        .status(statusCode.unauthorized)
+        .status(statusCode.forbidden)
         .json({ success: apiResponses.failed, message: adminAuthorization });
     }
+
+    next();
   } catch (error) {
-    console.error(` ${adminAuthorization}:${error.message}`);
     next(error);
   }
 };
