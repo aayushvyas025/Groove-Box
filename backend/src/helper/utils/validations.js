@@ -34,8 +34,6 @@ export const validateSongInputs = (
   if (
     !title.trim() ||
     !artist.trim() ||
-    !imageUrl.trim() ||
-    !audioUrl.trim() ||
     !Number.isFinite(duration) ||
     duration <= 0 ||
     !albumId

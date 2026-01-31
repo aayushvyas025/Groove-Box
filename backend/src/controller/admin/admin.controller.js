@@ -1,33 +1,57 @@
 import { serverMessages } from "../../helper/constants/serverMessages.js";
-import { validateFileUpload, validateSongInputs } from "../../helper/utils/validations.js";
+import {
+  validateFileUpload,
+  validateSongInputs,
+} from "../../helper/utils/validations.js";
+import { Album } from "../../model/album/album.model.js";
+import { Song } from "../../model/song/song.model.js";
 
-const {statusCode} = serverMessages; 
+const { statusCode } = serverMessages;
 
+export const checkAdmin = async (request, response, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
 
-export  const checkAdmin = async(request, response, next) => {
-    try {
-        
-    } catch (error) {
-    next(error)
-    }
-}
+export const createSongs = async (request, response, next) => {
+  const { title, artist, duration, albumId } = request.body;
+  const audioFile = request?.files?.audioFile;
+  const imageFile = request?.files?.imageFile;
+  const songValidResponse = validateSongInputs(
+    title,
+    artist,
+    duration,
+    albumId,
+  );
+  const validFileUploadsResponse = validateFileUpload(audioFile, imageFile);
 
-
-export const createSongs = async(request, response, next) => {
-  const {title, artist, imageUrl, audioUrl,duration, albumId} = request.body; 
-  const audioFile = request?.files?.audioFile; 
-  const imageFile = request?.files?.imageFile; 
-  const songValidationRes = validateSongInputs(title, artist, imageUrl, audioUrl, duration, albumId);
-  const validFileUploadsRes = validateFileUpload(audioFile, imageFile);
-
-  if(!validFileUploadsRes.success) {
-    return response.status(statusCode.badRequest).json(validFileUploadsRes);
+  if (!validFileUploadsResponse.success) {
+    return response
+      .status(statusCode.badRequest)
+      .json(validFileUploadsResponse);
   }
 
- try {
+  try {
+    const song = new Song({
+      title,
+      artist,
+      imageUrl,
+      audioUrl,
+      duration,
+      albumId: albumId || null,
+    });
 
-    
- } catch (error) {
+    await song.save(); 
+
+    if(albumId) {
+        // pushing song into specific album which associated with that id 
+        await Album.findByIdAndUpdate(albumId), {
+            $push:{songs:song._id}
+        }; 
+    }
+  } catch (error) {
     next(error);
- }
-}
+  }
+};
