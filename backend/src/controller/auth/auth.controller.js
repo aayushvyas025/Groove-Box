@@ -2,7 +2,7 @@ import { serverMessages } from "../../helper/constants/serverMessages.js";
 import { validateAuthInputs } from "../../helper/utils/validations.js";
 import { User } from "../../model/user/user.model.js";
 
-const { statusCode, apiResponses } = serverMessages;
+const { statusCode} = serverMessages;
 
 export const authCallback = async (request, response, next) => {
   const { id, firstName, lastName, imageUrl } = request.body;

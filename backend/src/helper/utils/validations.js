@@ -1,6 +1,7 @@
 import { serverMessages } from "../constants/serverMessages.js";
 
-const { apiResponses, authMessages, adminMessages } = serverMessages;
+const { apiResponses, authMessages, adminMessages, fileUploadMessages } =
+  serverMessages;
 const { adminSongMessages } = adminMessages;
 const { signupMessages } = authMessages;
 
@@ -49,4 +50,16 @@ export const validateSongInputs = (
     success: apiResponses.success,
     message: adminSongMessages.songCreated,
   };
+};
+
+export const validateFileUpload = (audioFile, imageFile) => {
+  if (
+    (!audioFile && typeof audioFile !== "string") ||
+    (!imageFile && typeof imageFile !== "string")
+  ) {
+    return {
+      success: apiResponses.failed,
+      message: fileUploadMessages.fileUploadError,
+    };
+  }
 };

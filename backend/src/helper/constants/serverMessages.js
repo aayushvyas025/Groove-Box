@@ -49,5 +49,8 @@ export const serverMessages = Object.freeze({
       songInputFieldError:'Error - required all fields',
       songCreated:'Song created successfully'
     }
+  },
+  fileUploadMessages:{
+    fileUploadError:'Error - required all uploads'
   }
 });
