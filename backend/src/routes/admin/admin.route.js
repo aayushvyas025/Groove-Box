@@ -15,15 +15,16 @@ import {
 const { admin, song, album } = API;
 const { CHECK_ADMIN } = admin;
 const { CREATE_SONG, DELETE_SONG } = song;
-const {CREATE_ALBUM, DELETE_ALBUM} = album; 
+const { CREATE_ALBUM, DELETE_ALBUM } = album;
 
 const router = express.Router();
 
-router.get(CHECK_ADMIN, protectRoute, requireAdmin, checkAdmin);
-router.post(CREATE_SONG, protectRoute, requireAdmin, createSongs);
-router.delete(DELETE_SONG, protectRoute,requireAdmin,deleteSongs);
-router.post(CREATE_ALBUM, protectRoute, requireAdmin,createAlbum);
-router.delete(DELETE_ALBUM, protectRoute, requireAdmin, deleteAlbum);
+router.use(protectRoute, requireAdmin);
 
+router.get(CHECK_ADMIN, checkAdmin);
+router.post(CREATE_SONG, createSongs);
+router.delete(DELETE_SONG, deleteSongs);
+router.post(CREATE_ALBUM, createAlbum);
+router.delete(DELETE_ALBUM, deleteAlbum);
 
 export default router;
