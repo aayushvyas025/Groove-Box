@@ -11,12 +11,22 @@ import { Song } from "../../model/song/song.model.js";
 
 const { statusCode, apiResponses, albumMessages, adminMessages } =
   serverMessages;
-const { adminSongsMessages, adminAlbumMessages } = adminMessages;
+const { adminSongsMessages, adminAlbumMessages, adminResponseMessages } =
+  adminMessages;
 
-export const checkAdmin = async (request, response, next) => {
+export const checkAdmin = async (_, response, next) => {
   try {
+    response
+      .status(statusCode.ok)
+      .json({
+        success: apiResponses.success,
+        message: adminResponseMessages.checkAdmin,
+        admin:true
+      });
   } catch (error) {
-    console.error(`:${error.message}`);
+    console.error(
+      `${adminResponseMessages.checkAdminError} : ${error.message}`,
+    );
     next(error);
   }
 };
@@ -156,12 +166,10 @@ export const deleteAlbum = async (request, response, next) => {
     await Song.deleteMany({ albumId: id });
     await Album.findByIdAndDelete(id);
 
-    response
-      .status(statusCode.ok)
-      .json({
-        success: apiResponses.success,
-        message: adminAlbumMessages.albumDeleted,
-      });
+    response.status(statusCode.ok).json({
+      success: apiResponses.success,
+      message: adminAlbumMessages.albumDeleted,
+    });
   } catch (error) {
     console.error(
       `${adminAlbumMessages.albumDeletionError} : ${error.message}`,

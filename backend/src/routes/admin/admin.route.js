@@ -4,6 +4,7 @@ import {
   checkAdmin,
   createAlbum,
   createSongs,
+  deleteAlbum,
   deleteSongs,
 } from "../../controller/admin/admin.controller.js";
 import {
@@ -22,6 +23,7 @@ router.get(CHECK_ADMIN, protectRoute, requireAdmin, checkAdmin);
 router.post(CREATE_SONG, protectRoute, requireAdmin, createSongs);
 router.delete(DELETE_SONG, protectRoute,requireAdmin,deleteSongs);
 router.post(CREATE_ALBUM, protectRoute, requireAdmin,createAlbum);
+router.delete(DELETE_ALBUM, protectRoute, requireAdmin, deleteAlbum);
 
 
 export default router;

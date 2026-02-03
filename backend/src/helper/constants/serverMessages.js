@@ -43,6 +43,10 @@ export const serverMessages = Object.freeze({
     },
   },
   adminMessages: {
+    adminResponseMessages: {
+      checkAdmin: "Successfully check admin",
+      checkAdminError: "Error - while check admin",
+    },
     adminSongsMessages: {
       songInputFieldError: "Error - required all fields",
       songCreated: "Song created successfully",
