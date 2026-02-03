@@ -10,7 +10,8 @@ import {
 import { Album } from "../../model/album/album.model.js";
 import { Song } from "../../model/song/song.model.js";
 
-const { statusCode, apiResponses, albumMessages } = serverMessages;
+const { statusCode, apiResponses, albumMessages,adminMessages } = serverMessages;
+const {adminSongsMessages} = adminMessages;
 
 export const checkAdmin = async (request, response, next) => {
   try {
@@ -73,6 +74,7 @@ export const createSongs = async (request, response, next) => {
     }
     response.status(statusCode.created).json({ ...validSongResponse, song });
   } catch (error) {
+    console.error(`${adminSongsMessages.songCreationError}: ${error.message}`);
     next(error);
   }
 };
@@ -86,6 +88,7 @@ export const deleteSongs = async (request, response, next) => {
   try {
     const song = await Song.findByIdAndDelete(id);
   } catch (error) {
+    console.error(`${adminSongsMessages.songDeletionError}: ${error.message}`)
     next(error);
   }
 };

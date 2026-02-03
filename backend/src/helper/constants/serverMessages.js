@@ -14,8 +14,8 @@ export const serverMessages = Object.freeze({
     failed: false,
     commonResponses: {
       serverError: "Internal Server Error",
-      invalidId:"Error - invalid id provided",
-      validId:"Success - valid id provided"
+      invalidId: "Error - invalid id provided",
+      validId: "Success - valid id provided",
     },
   },
   databaseMessages: {
@@ -46,7 +46,9 @@ export const serverMessages = Object.freeze({
     adminSongsMessages: {
       songInputFieldError: "Error - required all fields",
       songCreated: "Song created successfully",
-      songDeleted:"Song deleted successfully"
+      songCreationError: "Error - while creating song",
+      songDeleted: "Song deleted successfully",
+      songDeletionError: "Error - while deleting song",
     },
   },
   fileUploadMessages: {
