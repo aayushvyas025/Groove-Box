@@ -1,12 +1,10 @@
 import { serverMessages } from "../../helper/constants/serverMessages.js";
-import {
-  uploadToCloudinary,
-  validIdChecker,
-} from "../../helper/utils/helpers.js";
+import { uploadToCloudinary } from "../../helper/utils/helpers.js";
 import {
   validateAlbumInputs,
   validateFileUpload,
   validateSongInputs,
+  validIdChecker,
 } from "../../helper/utils/validations.js";
 import { Album } from "../../model/album/album.model.js";
 import { Song } from "../../model/song/song.model.js";
@@ -134,13 +132,11 @@ export const createAlbum = async (request, response, next) => {
     });
 
     await album.save();
-    response
-      .status(statusCode.created)
-      .json({
-        success: apiResponses.success,
-        message: adminAlbumMessages.albumCreated,
-        album,
-      });
+    response.status(statusCode.created).json({
+      success: apiResponses.success,
+      message: adminAlbumMessages.albumCreated,
+      album,
+    });
   } catch (error) {
     console.error(
       `${adminAlbumMessages.albumCreationError} : ${error.message}`,
@@ -150,8 +146,26 @@ export const createAlbum = async (request, response, next) => {
 };
 
 export const deleteAlbum = async (request, response, next) => {
+  const { id } = request.params;
+  const validIdResponse = validIdChecker(id);
+  if (!validIdResponse.success) {
+    return response.status(statusCode.notFound).json(validIdResponse);
+  }
+
   try {
+    await Song.deleteMany({ albumId: id });
+    await Album.findByIdAndDelete(id);
+
+    response
+      .status(statusCode.ok)
+      .json({
+        success: apiResponses.success,
+        message: adminAlbumMessages.albumDeleted,
+      });
   } catch (error) {
+    console.error(
+      `${adminAlbumMessages.albumDeletionError} : ${error.message}`,
+    );
     next(error);
   }
 };

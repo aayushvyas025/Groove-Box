@@ -8,7 +8,6 @@ const { commonResponses } = apiResponses;
 const { nodeEnvironment } = envSecrets;
 
 export const apiErrorResponse = (error) => {
-  console.error(`${commonResponses.serverError} ${error.message}`);
   return {
     success: apiResponses.failed,
     message: nodeEnvironment ? commonResponses.serverError : error.message,
@@ -30,17 +29,3 @@ export const uploadToCloudinary = async (file) => {
   }
 };
 
-export const validIdChecker = (id) => {
-  const isValidId = mongoose.isValidObjectId(id);
-  if (!isValidId) {
-    return {
-      success: apiResponses.failed,
-      message: commonResponses.invalidId,
-    };
-  }
-
-  return {
-    success: apiResponses.success,
-    message: commonResponses.validId,
-  };
-};

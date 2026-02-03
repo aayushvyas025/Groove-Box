@@ -67,3 +67,19 @@ export const validateAlbumInputs = (title, releaseYear, artist) => {
     message: adminAlbumMessages.albumCreated,
   };
 };
+
+
+export const validIdChecker = (id) => {
+  const isValidId = mongoose.isValidObjectId(id);
+  if (!isValidId) {
+    return {
+      success: apiResponses.failed,
+      message: commonResponses.invalidId,
+    };
+  }
+
+  return {
+    success: apiResponses.success,
+    message: commonResponses.validId,
+  };
+};
