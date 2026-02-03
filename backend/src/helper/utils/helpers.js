@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { cloudinaryConfig } from "../../config/cloudinary.js";
 import { envSecrets } from "../constants/constants.js";
 import { serverMessages } from "../constants/serverMessages.js";
@@ -25,6 +26,21 @@ export const uploadToCloudinary = async (file) => {
     return uploadResult.secure_url;
   } catch (error) {
     console.error(`${fileUploadMessages.cloudinaryError}: ${error.message}`);
-    throw new Error(`${fileUploadMessages.cloudinaryError}`); 
+    throw new Error(`${fileUploadMessages.cloudinaryError}`);
   }
+};
+
+export const validIdChecker = (id) => {
+  const isValidId = mongoose.isValidObjectId(id);
+  if (!isValidId) {
+    return {
+      success: apiResponses.failed,
+      message: commonResponses.invalidId,
+    };
+  }
+
+  return {
+    success: apiResponses.success,
+    message: commonResponses.validId,
+  };
 };

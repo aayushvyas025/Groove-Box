@@ -1,5 +1,8 @@
 import { serverMessages } from "../../helper/constants/serverMessages.js";
-import { uploadToCloudinary } from "../../helper/utils/helpers.js";
+import {
+  uploadToCloudinary,
+  validIdChecker,
+} from "../../helper/utils/helpers.js";
 import {
   validateFileUpload,
   validateSongInputs,
@@ -58,12 +61,10 @@ export const createSongs = async (request, response, next) => {
     if (albumId) {
       const album = await Album.findById(albumId);
       if (!album) {
-        return response
-          .status(statusCode.notFound)
-          .json({
-            success: apiResponses.failed,
-            message: albumMessages.albumNotFound,
-          });
+        return response.status(statusCode.notFound).json({
+          success: apiResponses.failed,
+          message: albumMessages.albumNotFound,
+        });
       }
       // pushing song into specific album which associated with that id
       await Album.findByIdAndUpdate(albumId, {
@@ -71,6 +72,19 @@ export const createSongs = async (request, response, next) => {
       });
     }
     response.status(statusCode.created).json({ ...validSongResponse, song });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const deleteSongs = async (request, response, next) => {
+  const { id } = request.params;
+  const validIdResponse = validIdChecker(id);
+  if (!validIdResponse) {
+    return response.status(statusCode.notFound).json(validIdResponse);
+  }
+  try {
+    const song = await Song.findByIdAndDelete(id);
   } catch (error) {
     next(error);
   }

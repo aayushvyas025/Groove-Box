@@ -2,7 +2,9 @@ import { serverMessages } from "../../helper/constants/serverMessages.js";
 import { validateAuthInputs } from "../../helper/utils/validations.js";
 import { User } from "../../model/user/user.model.js";
 
-const { statusCode} = serverMessages;
+const { statusCode,authMessages} = serverMessages;
+const {signupMessages} = authMessages; 
+
 
 export const authCallback = async (request, response, next) => {
   const { id, firstName, lastName, imageUrl } = request.body;
@@ -32,6 +34,7 @@ export const authCallback = async (request, response, next) => {
         .json({ ...validationResponse, signupUser });
     }
   } catch (error) {
+    console.error(`${signupMessages.signupError} ${error.message}`);
     next(error);
    
   }

@@ -14,6 +14,8 @@ export const serverMessages = Object.freeze({
     failed: false,
     commonResponses: {
       serverError: "Internal Server Error",
+      invalidId:"Error - invalid id provided",
+      validId:"Success - valid id provided"
     },
   },
   databaseMessages: {
@@ -33,7 +35,7 @@ export const serverMessages = Object.freeze({
     signupMessages: {
       inputFieldsError: "Error - Required all fields",
       signupSuccess: "User signup successfully",
-      signupError: "Error while ",
+      signupError: "Error while authentication",
     },
     authorizedMessages: {
       notAuthorized: "Error un-authorized - user must be logged in",
@@ -44,6 +46,7 @@ export const serverMessages = Object.freeze({
     adminSongsMessages: {
       songInputFieldError: "Error - required all fields",
       songCreated: "Song created successfully",
+      songDeleted:"Song deleted successfully"
     },
   },
   fileUploadMessages: {
