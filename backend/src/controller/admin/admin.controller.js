@@ -10,12 +10,14 @@ import {
 import { Album } from "../../model/album/album.model.js";
 import { Song } from "../../model/song/song.model.js";
 
-const { statusCode, apiResponses, albumMessages,adminMessages } = serverMessages;
-const {adminSongsMessages} = adminMessages;
+const { statusCode, apiResponses, albumMessages, adminMessages } =
+  serverMessages;
+const { adminSongsMessages } = adminMessages;
 
 export const checkAdmin = async (request, response, next) => {
   try {
   } catch (error) {
+    console.error(`:${error.message}`);
     next(error);
   }
 };
@@ -86,9 +88,17 @@ export const deleteSongs = async (request, response, next) => {
     return response.status(statusCode.notFound).json(validIdResponse);
   }
   try {
-    const song = await Song.findByIdAndDelete(id);
+    const song = await Song.findById(id);
+
+    if (song.albumId) {
+      await Album.findByIdAndUpdate(song.albumId, {
+        $pull: { song: song._id },
+      });
+    }
+    await song.findByIdAndDelete(id);
   } catch (error) {
-    console.error(`${adminSongsMessages.songDeletionError}: ${error.message}`)
+    console.error(`${adminSongsMessages.songDeletionError}: ${error.message}`);
     next(error);
   }
 };
+

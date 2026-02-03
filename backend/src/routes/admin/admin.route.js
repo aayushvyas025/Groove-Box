@@ -3,6 +3,7 @@ import { API } from "../../helper/constants/apiRoutes.js";
 import {
   checkAdmin,
   createSongs,
+  deleteSongs,
 } from "../../controller/admin/admin.controller.js";
 import {
   protectRoute,
@@ -17,6 +18,6 @@ const router = express.Router();
 
 router.get(CHECK_ADMIN, protectRoute, requireAdmin, checkAdmin);
 router.post(CREATE_SONG, protectRoute, requireAdmin, createSongs);
-router.delete(DELETE_SONG, protectRoute,requireAdmin,)
+router.delete(DELETE_SONG, protectRoute,requireAdmin,deleteSongs)
 
 export default router;
