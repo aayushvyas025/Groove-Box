@@ -50,6 +50,13 @@ export const serverMessages = Object.freeze({
       songDeleted: "Song deleted successfully",
       songDeletionError: "Error - while deleting song",
     },
+    adminAlbumMessages: {
+      albumInputFieldError: "Error - required all fields",
+      albumCreated: "Album created successfully",
+      albumCreationError: "Error - while creating album",
+      albumDeleted: "Album created successfully",
+      albumDeletionError: "Error - while deleting album",
+    },
   },
   fileUploadMessages: {
     fileUploadError: "Error - required all uploads",

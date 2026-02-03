@@ -5,6 +5,8 @@ export const API = Object.freeze({
  },
  album:{
     BASE_URL:`/groove-box/api/v1/album`,
+    CREATE_ALBUM:`/album/create`,
+    DELETE_ALBUM:`/album/:id`
  },
  song:{
     BASE_URL:`/groove-box/api/v1/song`,

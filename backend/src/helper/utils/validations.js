@@ -2,7 +2,7 @@ import { serverMessages } from "../constants/serverMessages.js";
 
 const { apiResponses, authMessages, adminMessages, fileUploadMessages } =
   serverMessages;
-const { adminSongMessages } = adminMessages;
+const { adminSongMessages, adminAlbumMessages } = adminMessages;
 const { signupMessages } = authMessages;
 
 export const validateAuthInputs = (id, firstName, lastName, imageUrl = "") => {
@@ -23,14 +23,7 @@ export const validateAuthInputs = (id, firstName, lastName, imageUrl = "") => {
   };
 };
 
-export const validateSongInputs = (
-  title,
-  artist,
-  imageUrl,
-  audioUrl,
-  duration,
-  albumId,
-) => {
+export const validateSongInputs = (title, artist, duration, albumId) => {
   if (
     !title.trim() ||
     !artist.trim() ||
@@ -50,14 +43,27 @@ export const validateSongInputs = (
   };
 };
 
-export const validateFileUpload = (audioFile, imageFile) => {
-  if (
-    (!audioFile && typeof audioFile !== "string") ||
-    (!imageFile && typeof imageFile !== "string")
-  ) {
+export const validateFileUpload = (file) => {
+  if (!file) {
     return {
       success: apiResponses.failed,
       message: fileUploadMessages.fileUploadError,
     };
   }
+
+  return { success: apiResponses.success };
+};
+
+export const validateAlbumInputs = (title, releaseYear, artist) => {
+  if (!title.trim() || !releaseYear || !artist.trim()) {
+    return {
+      success: apiResponses.failed,
+      message: adminAlbumMessages.albumInputFieldError,
+    };
+  }
+
+  return {
+    success: apiResponses.success,
+    message: adminAlbumMessages.albumCreated,
+  };
 };

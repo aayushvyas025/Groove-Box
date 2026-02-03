@@ -4,6 +4,7 @@ import {
   validIdChecker,
 } from "../../helper/utils/helpers.js";
 import {
+  validateAlbumInputs,
   validateFileUpload,
   validateSongInputs,
 } from "../../helper/utils/validations.js";
@@ -12,7 +13,7 @@ import { Song } from "../../model/song/song.model.js";
 
 const { statusCode, apiResponses, albumMessages, adminMessages } =
   serverMessages;
-const { adminSongsMessages } = adminMessages;
+const { adminSongsMessages, adminAlbumMessages } = adminMessages;
 
 export const checkAdmin = async (request, response, next) => {
   try {
@@ -32,16 +33,17 @@ export const createSongs = async (request, response, next) => {
     duration,
     albumId,
   );
-  const validFileUploadsResponse = validateFileUpload(audioFile, imageFile);
+  const validAudioUpload = validateFileUpload(audioFile);
+  const validImageUpload = validateFileUpload(imageFile);
 
   if (!validSongResponse.success) {
     return response.status(statusCode.badRequest).json(validSongResponse);
   }
 
-  if (!validFileUploadsResponse.success) {
+  if (!validAudioUpload.success || !validImageUpload.success) {
     return response
       .status(statusCode.badRequest)
-      .json(validFileUploadsResponse);
+      .json(!validAudioUpload.success ? validAudioUpload : validImageUpload);
   }
 
   try {
@@ -84,7 +86,7 @@ export const createSongs = async (request, response, next) => {
 export const deleteSongs = async (request, response, next) => {
   const { id } = request.params;
   const validIdResponse = validIdChecker(id);
-  if (!validIdResponse) {
+  if (!validIdResponse.success) {
     return response.status(statusCode.notFound).json(validIdResponse);
   }
   try {
@@ -92,13 +94,64 @@ export const deleteSongs = async (request, response, next) => {
 
     if (song.albumId) {
       await Album.findByIdAndUpdate(song.albumId, {
-        $pull: { song: song._id },
+        $pull: { songs: song._id },
       });
     }
-    await song.findByIdAndDelete(id);
+    await Song.findByIdAndDelete(id);
+    response.status(statusCode.ok).json({
+      success: apiResponses.success,
+      message: adminSongsMessages.songDeleted,
+      song,
+    });
   } catch (error) {
     console.error(`${adminSongsMessages.songDeletionError}: ${error.message}`);
     next(error);
   }
 };
 
+export const createAlbum = async (request, response, next) => {
+  const imageFile = request?.files?.imageFile;
+  const { title, artist, releaseYear } = request.body;
+  const validFileUpload = validateFileUpload(imageFile);
+  const validAlbumResponse = validateAlbumInputs(title, artist, releaseYear);
+
+  if (!validAlbumResponse.success) {
+    return response.status(statusCode.badRequest).json(validAlbumResponse);
+  }
+
+  if (!validFileUpload.success) {
+    return response.status(statusCode.badRequest).json(validFileUpload);
+  }
+
+  try {
+    const imageUrl = await uploadToCloudinary(imageFile);
+
+    const album = new Album({
+      title,
+      artist,
+      imageUrl,
+      releaseYear,
+    });
+
+    await album.save();
+    response
+      .status(statusCode.created)
+      .json({
+        success: apiResponses.success,
+        message: adminAlbumMessages.albumCreated,
+        album,
+      });
+  } catch (error) {
+    console.error(
+      `${adminAlbumMessages.albumCreationError} : ${error.message}`,
+    );
+    next(error);
+  }
+};
+
+export const deleteAlbum = async (request, response, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
