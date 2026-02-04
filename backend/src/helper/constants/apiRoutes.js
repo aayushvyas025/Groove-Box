@@ -1,7 +1,7 @@
 export const API = Object.freeze({
   user: {
-    BASE_URL: `/groove-box/api/v1/user`,
-    FETCH_USERS:`/all`
+    BASE_URL: `/groove-box/api/v1`,
+    FETCH_USERS:`/users`
   },
   album: {
     BASE_URL: `/groove-box/api/v1/album`,
@@ -18,7 +18,8 @@ export const API = Object.freeze({
     FETCH_TRENDING_SONGS: `/trending`,
   },
   stats: {
-    BASE_URL: `/groove-box/api/v1/stats`,
+    BASE_URL: `/groove-box/api/v1`,
+    FETCH_STATS:`/stats`
   },
   auth: {
     BASE_URL: `/groove-box/api/v1/auth`,
