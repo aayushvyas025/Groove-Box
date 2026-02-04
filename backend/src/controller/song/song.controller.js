@@ -36,30 +36,68 @@ export const fetchTrendingSongs = async (_, response, next) => {
       },
     ]);
 
-    response
-      .status(statusCode.ok)
-      .json({
-        success: apiResponses.success,
-        message: songMessages.trendingSongs,
-        trendingSongs: songs,
-      });
+    response.status(statusCode.ok).json({
+      success: apiResponses.success,
+      message: songMessages.trendingSongs,
+      trendingSongs: songs,
+    });
   } catch (error) {
     console.error(`${songMessages.trendingSongsError}: ${error.message}`);
     next(error);
   }
 };
 
-export const fetchUserPreferenceSongs = async (request, response, next) => {
+export const fetchUserPreferenceSongs = async (_, response, next) => {
   try {
+    const songs = await Song.aggregate([
+      {
+        $sample: 4,
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          artist: 1,
+          imageUrl: 1,
+          audioUrl: 1,
+        },
+      },
+    ]);
+
+    response.status(statusCode.ok).json({
+      success: apiResponses.success,
+      message: songMessages.userPreferenceSongs,
+      userPreferenceSongs: songs,
+    });
   } catch (error) {
-    console.error(`: ${error.message}`);
+    console.error(`${songMessages.userPreferenceSongsError}: ${error.message}`);
     next(error);
   }
 };
 
-export const fetchFeaturedSongs = async (request, response, next) => {
+export const fetchFeaturedSongs = async (_, response, next) => {
   try {
+    const songs = await Song.aggregate([
+      { $sample: 4 },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          artist: 1,
+          imageUrl: 1,
+          audioUrl: 1,
+        },
+      },
+    ]);
+    response
+      .status(statusCode.ok)
+      .json({
+        success: apiResponses.success,
+        message: songMessages.featuredSongs,
+        featuredSongs: songs,
+      });
   } catch (error) {
-    console.error(` :${error.message}`);
+    console.error(` ${songMessages.featuredSongsError} :${error.message}`);
+    next(error);
   }
 };

@@ -70,10 +70,13 @@ export const serverMessages = Object.freeze({
     albumNotFound: "Error - album not found",
   },
   songMessages: {
-    fetchAllSongs:'Successfully fetch all songs',
-    errorFetchAllSongs:"Error - while fetching all songs",
-    trendingSongs:'Successfully fetch trending songs',
-    trendingSongsError:'Error - while fetching trending song',
-    
-  }
+    fetchAllSongs: "Successfully fetch all songs",
+    errorFetchAllSongs: "Error - while fetching all songs",
+    trendingSongs: "Successfully fetch trending songs",
+    trendingSongsError: "Error - while fetching trending songs",
+    userPreferenceSongs: "Successfully fetch user preference songs",
+    userPreferenceSongsError: "Error - while fetch user preference songs",
+    featuredSongs: "Successfully fetch featured songs",
+    featuredSongsError: "Error - while fetch featured songs",
+  },
 });
