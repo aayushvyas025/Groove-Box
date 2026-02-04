@@ -1,6 +1,7 @@
 import express from "express"; 
 import { API } from "../../helper/constants/apiRoutes.js";
 import { protectRoute, requireAdmin } from "../../middleware/auth/auth.middleware.js";
+import { fetchAllUsers } from "../../controller/users/users.controller.js";
 
 const {user} = API; 
 const {FETCH_USERS } = user; 

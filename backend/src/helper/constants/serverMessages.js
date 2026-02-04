@@ -83,4 +83,8 @@ export const serverMessages = Object.freeze({
     fetchAllUser: "Successfully fetch all users",
     fetchAllUserError: "Error - while fetching users",
   },
+  statsMessages:{
+    fetchAllStats:"Successfully fetch all stats",
+    fetchAllStatsError:"Error - while fetching stats"
+  }
 });
