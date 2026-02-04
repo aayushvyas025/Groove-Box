@@ -79,4 +79,8 @@ export const serverMessages = Object.freeze({
     featuredSongs: "Successfully fetch featured songs",
     featuredSongsError: "Error - while fetch featured songs",
   },
+  usersMessages: {
+    fetchAllUser: "Successfully fetch all users",
+    fetchAllUserError: "Error - while fetching users",
+  },
 });
