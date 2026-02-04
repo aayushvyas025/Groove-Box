@@ -71,6 +71,9 @@ export const serverMessages = Object.freeze({
   },
   songMessages: {
     fetchAllSongs:'Successfully fetch all songs',
-    errorFetchAllSongs:"Error - while fetching all songs"
+    errorFetchAllSongs:"Error - while fetching all songs",
+    trendingSongs:'Successfully fetch trending songs',
+    trendingSongsError:'Error - while fetching trending song',
+    
   }
 });
