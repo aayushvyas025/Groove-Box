@@ -13,3 +13,11 @@ export const envSecrets = Object.freeze({
   cloudinaryApiKey: process.env?.CLOUDINARY_API_KEY,
   cloudinaryApiSecret: process.env?.CLOUDINARY_API_SECRET,
 });
+
+export const songProjection = {
+  _id: 1,
+  title: 1,
+  artist: 1,
+  imageUrl: 1,
+  audioUrl: 1,
+};

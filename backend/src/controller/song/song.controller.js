@@ -1,3 +1,4 @@
+import { songProjection } from "../../helper/constants/constants.js";
 import { serverMessages } from "../../helper/constants/serverMessages.js";
 import { Song } from "../../model/song/song.model.js";
 
@@ -26,13 +27,7 @@ export const fetchTrendingSongs = async (_, response, next) => {
         },
       },
       {
-        $project: {
-          _id: 1,
-          title: 1,
-          artist: 1,
-          imageUrl: 1,
-          audioUrl: 1,
-        },
+        $project: songProjection,
       },
     ]);
 
@@ -54,13 +49,7 @@ export const fetchUserPreferenceSongs = async (_, response, next) => {
         $sample: { size: 4 },
       },
       {
-        $project: {
-          _id: 1,
-          title: 1,
-          artist: 1,
-          imageUrl: 1,
-          audioUrl: 1,
-        },
+        $project: songProjection,
       },
     ]);
 
@@ -80,13 +69,7 @@ export const fetchFeaturedSongs = async (_, response, next) => {
     const songs = await Song.aggregate([
       { $sample: { size: 4 } },
       {
-        $project: {
-          _id: 1,
-          title: 1,
-          artist: 1,
-          imageUrl: 1,
-          audioUrl: 1,
-        },
+        $project: songProjection,
       },
     ]);
     response.status(statusCode.ok).json({
