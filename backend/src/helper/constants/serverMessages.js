@@ -69,4 +69,8 @@ export const serverMessages = Object.freeze({
   albumMessages: {
     albumNotFound: "Error - album not found",
   },
+  songMessages: {
+    fetchAllSongs:'Successfully fetch all songs',
+    errorFetchAllSongs:"Error - while fetching all songs"
+  }
 });
