@@ -51,7 +51,7 @@ export const fetchUserPreferenceSongs = async (_, response, next) => {
   try {
     const songs = await Song.aggregate([
       {
-        $sample: 4,
+        $sample: { size: 4 },
       },
       {
         $project: {
@@ -78,7 +78,7 @@ export const fetchUserPreferenceSongs = async (_, response, next) => {
 export const fetchFeaturedSongs = async (_, response, next) => {
   try {
     const songs = await Song.aggregate([
-      { $sample: 4 },
+      { $sample: { size: 4 } },
       {
         $project: {
           _id: 1,
@@ -89,13 +89,11 @@ export const fetchFeaturedSongs = async (_, response, next) => {
         },
       },
     ]);
-    response
-      .status(statusCode.ok)
-      .json({
-        success: apiResponses.success,
-        message: songMessages.featuredSongs,
-        featuredSongs: songs,
-      });
+    response.status(statusCode.ok).json({
+      success: apiResponses.success,
+      message: songMessages.featuredSongs,
+      featuredSongs: songs,
+    });
   } catch (error) {
     console.error(` ${songMessages.featuredSongsError} :${error.message}`);
     next(error);
