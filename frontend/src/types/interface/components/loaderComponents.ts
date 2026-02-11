@@ -1,4 +1,4 @@
-export interface LoaderAuth {
+export interface LoaderAuthProps {
     color?:string;
     thickness?:string;
     size?:string
